@@ -17,4 +17,13 @@ class Ressource extends Model
     public function commentaires(){
         return $this->hasMany('App\Models\Commentaire');
     }
+
+    //relation many to many
+    public function categories(){
+        return $this->belongsToMany('App\Models\Categorie');
+    }
+
+    public function typeRessources(){
+        return $this->belongsToMany('App\Models\TypeRessource');
+    }
 }
