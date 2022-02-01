@@ -10,11 +10,11 @@ class Ressource extends Model
     use HasFactory;
 
     // relation one to many
-    public function user(){
+    public function users(){
         return $this->belongsTo('App\Models\User');
     }
 
-    public function commentaire(){
+    public function commentaires(){
         return $this->hasMany('App\Models\Commentaire');
     }
 }

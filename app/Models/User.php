@@ -43,16 +43,21 @@ class User extends Authenticatable
     ];
 
     // relation one to one
-    public function profil(){
+    public function profils(){
         return $this->hasOne('App\Models\Profil');
     }
 
     // relation one to many
-    public function ressource(){
+    public function ressources(){
         return $this->hasMany('App\Models\Ressource');
     }
 
-    public function commentaire(){
+    public function commentaires(){
         return $this->hasMany('App\Models\Commentaire');
+    }
+
+    // relation many to many
+    public function roles(){
+        return $this->belongsToMany('App\Models\Role');
     }
 }
