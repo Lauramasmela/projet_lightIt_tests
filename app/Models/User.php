@@ -42,7 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // relation one to one
     public function profil(){
         return $this->hasOne('App\Models\Profil');
+    }
+
+    // relation one to many
+    public function ressource(){
+        return $this->hasMany('App\Models\Ressource');
     }
 }
