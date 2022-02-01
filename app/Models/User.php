@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function ressource(){
         return $this->hasMany('App\Models\Ressource');
     }
+
+    public function commentaire(){
+        return $this->hasMany('App\Models\Commentaire');
+    }
 }
