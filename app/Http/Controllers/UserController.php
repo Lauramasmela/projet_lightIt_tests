@@ -64,14 +64,14 @@ class UserController extends Controller
         }
     }
 
+    public function logout(){
+        //supprimer le token
+        auth()->user()->tokens()->delete();
 
-    public function userProfil()
-    {
-
-    }
-
-    public function logout()
-    {
-
+        // msg de confirmation
+        return response()->json([
+            "status" => 1,
+            "msg" => "Utilisateur déconnecté !",
+        ], 404);
     }
 }

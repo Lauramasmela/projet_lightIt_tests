@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfilController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -20,7 +21,7 @@ Route::post('registrer', [UserController::class, 'registrer']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::group(['middleware' => ["auth:sanctum"]], function(){
-   Route::get('user-profile', [UserController::class, 'userProfil']);
+   Route::get('user-profil', [ProfilController::class, 'userProfil']);
    Route::get('logout', [UserController::class, 'logout']);
 });
 

@@ -9,6 +9,17 @@ class Ressource extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'titre',
+        'contenu',
+    ];
+
     // relation one to many
     public function users(){
         return $this->belongsTo('App\Models\User');
