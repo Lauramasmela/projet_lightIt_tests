@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function registrer(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'pseudo' => 'required',
@@ -72,6 +72,6 @@ class UserController extends Controller
         return response()->json([
             "status" => 1,
             "msg" => "Utilisateur déconnecté !",
-        ], 404);
+        ] );
     }
 }

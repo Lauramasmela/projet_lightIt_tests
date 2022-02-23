@@ -17,6 +17,7 @@ class CreateRessourcesTable extends Migration
             $table->id();
             $table->string('titre');
             $table->string('contenu');
+            $table->boolean('publiee')->default(0);
 
             $table->unsignedBigInteger('user_id');
 

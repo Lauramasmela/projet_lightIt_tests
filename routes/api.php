@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfilController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\RessourceController;
+
+
 
 
 /*
@@ -17,12 +21,20 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('registrer', [UserController::class, 'registrer']);
+Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::group(['middleware' => ["auth:sanctum"]], function(){
+    //routes auth
    Route::get('user-profil', [ProfilController::class, 'userProfil']);
    Route::get('logout', [UserController::class, 'logout']);
+
+   //routes pour ressources
+    Route::post('create-ressource', [RessourceController::class, 'createRessource']);
+    Route::get('liste-ressource', [RessourceController::class, 'listeRessource']);
+    Route::get('show-ressource/{id}', [RessourceController::class, 'showRessource']);
+    Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
+    Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
