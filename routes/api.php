@@ -36,12 +36,15 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::get('liste-ressource', [RessourceController::class, 'listeRessource']);
     Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
+    Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
+    Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
 
     //routes pour categories
     Route::post('create-categorie', [CategorieController::class, 'createCategory']);
     Route::get('liste-categorie', [CategorieController::class, 'categoryList']);
     Route::put('update-categorie/{id}', [CategorieController::class, 'updateCategory']);
     Route::delete('delete-categorie/{id}', [CategorieController::class, 'deleteCategory']);
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

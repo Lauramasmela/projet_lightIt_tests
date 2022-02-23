@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Ressource;
 
@@ -26,12 +27,6 @@ class RessourceController extends Controller
         $ressource->contenu = $request->contenu;
 
         $ressource->save();
-
-
-
-
-
-
 
         return response([
             "status" => 1,
@@ -99,6 +94,34 @@ class RessourceController extends Controller
                 "msg" => "La ressource n'existe pas",
             ], 404);
         }
+    }
+
+    public function categoriseRessource($id){
+        //appel du tableau des categories choisies
+        $categorie = Categorie::find([2]);
+        //inserer dans find les categories cochées à attacher,
+        // normalement c'est un tableau post avec des checkboxes
+
+        $ressource = Ressource::find($id);
+        $ressource->categories()->attach($categorie);
+
+        return response([
+            "status" => 1,
+            "msg" => "la ressource a été categorisée avec succès !",
+        ]);
+    }
+    public function unCategoriseRessource($id){
+        $categorie = Categorie::find(2);
+        //inserer dans find les categories cochées à detacher
+
+        $ressource = Ressource::find($id);
+
+        $ressource->categories()->detach($categorie);
+
+        return response([
+            "status" => 1,
+            "msg" => "la categorie a été détachée avec succès !",
+        ]);
     }
 
     /*********************** Pour modérateur ********************************/
