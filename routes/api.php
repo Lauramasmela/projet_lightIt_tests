@@ -40,8 +40,8 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     //routes pour categories
     Route::post('create-categorie', [CategorieController::class, 'createCategory']);
     Route::get('liste-categorie', [CategorieController::class, 'categoryList']);
-    Route::post('update-categorie', [CategorieController::class, 'updateCategory']);
-    Route::post('delete-categorie', [CategorieController::class, 'deleteCategory']);
+    Route::put('update-categorie/{id}', [CategorieController::class, 'updateCategory']);
+    Route::delete('delete-categorie/{id}', [CategorieController::class, 'deleteCategory']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
