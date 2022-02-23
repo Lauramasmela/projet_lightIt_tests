@@ -101,6 +101,34 @@ class RessourceController extends Controller
         }
     }
 
+    /*********************** validation de la ressource (modérateur) ********************************/
+    public function validateRessource(Request $request, $id){
+        $user_id = auth()->user()->id;
+
+        if (Ressource::where(['user_id' => $user_id, 'id' => $id])->exists()) {
+
+            $ressource = Ressource::find($id);
+
+            $ressource->publiee = isset($request->publiee) ?
+                $request->publiee : $ressource->publiee;
+
+            $ressource->save();
+
+            return response([
+                "status" => 1,
+                "msg" => "La ressource avec l'id " . $id . " a été validée avec succès !",
+            ]);
+
+        } else {
+            return response([
+                "status" => 0,
+                "msg" => "La ressource n'existe pas",
+            ], 404);
+        }
+    }
+
+    /*******************************************************/
+
     public function deleteRessource($id){
         $user_id = auth()->user()->id;
         if (Ressource::where(['id'=>$id, "user_id"=>$user_id])->exists()){
