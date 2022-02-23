@@ -31,12 +31,37 @@ class RessourceController extends Controller
 
 
 
+
+
         return response([
             "status" => 1,
             "msg" => "La ressource vient d'être créée avec succès !",
         ]);
     }
 
+
+    public function showRessource($id)
+    {
+        $ressource = Ressource::where('id', $id)->first();
+
+        return response([
+            "status" => 1,
+            "msg" => "Détail de la ressource",
+            "data" => $ressource
+        ]);
+
+    }
+
+    public function allRessourcesList(){
+
+        $ressources = Ressource::all();
+
+        return response([
+            "status" => 1,
+            "msg" => "Liste de toutes les ressources",
+            "data" => $ressources
+        ]);
+    }
     public function listeRessource()
     {
         $user_id = auth()->user()->id;
@@ -47,11 +72,6 @@ class RessourceController extends Controller
             "msg" => "Liste de toutes les ressources de " . auth()->user()->pseudo,
             "data" => $ressources
         ]);
-    }
-
-    public function showRessource($id)
-    {
-
     }
 
     public function updateRessource(Request $request, $id)

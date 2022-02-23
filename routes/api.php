@@ -8,8 +8,6 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RessourceController;
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +22,9 @@ use App\Http\Controllers\RessourceController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
+Route::get('allRessourcesList', [RessourceController::class, 'allRessourcesList']);
+Route::get('show-ressource/{id}', [RessourceController::class, 'showRessource']);
+
 Route::group(['middleware' => ["auth:sanctum"]], function(){
     //routes auth
    Route::get('user-profil', [ProfilController::class, 'userProfil']);
@@ -32,7 +33,6 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
    //routes pour ressources
     Route::post('create-ressource', [RessourceController::class, 'createRessource']);
     Route::get('liste-ressource', [RessourceController::class, 'listeRessource']);
-    Route::get('show-ressource/{id}', [RessourceController::class, 'showRessource']);
     Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
 });
