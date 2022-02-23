@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CategorieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,12 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::get('liste-ressource', [RessourceController::class, 'listeRessource']);
     Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
+
+    //routes pour categories
+    Route::post('create-categorie', [CategorieController::class, 'createCategory']);
+    Route::get('liste-categorie', [CategorieController::class, 'categoryList']);
+    Route::post('update-categorie', [CategorieController::class, 'updateCategory']);
+    Route::post('delete-categorie', [CategorieController::class, 'deleteCategory']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
