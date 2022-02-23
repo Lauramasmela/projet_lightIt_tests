@@ -101,7 +101,8 @@ class RessourceController extends Controller
         }
     }
 
-    /*********************** validation de la ressource (modérateur) ********************************/
+    /*********************** Pour modérateur ********************************/
+
     public function validateRessource(Request $request, $id){
         $user_id = auth()->user()->id;
 
@@ -109,8 +110,7 @@ class RessourceController extends Controller
 
             $ressource = Ressource::find($id);
 
-            $ressource->publiee = isset($request->publiee) ?
-                $request->publiee : $ressource->publiee;
+            $ressource->publiee = isset($request->publiee) ? $request->publiee : $ressource->publiee;
 
             $ressource->save();
 
@@ -127,7 +127,7 @@ class RessourceController extends Controller
         }
     }
 
-    /*******************************************************/
+    /************************** Pour l'admin *****************************/
 
     public function deleteRessource($id){
         $user_id = auth()->user()->id;
