@@ -30,6 +30,11 @@ class Ressource extends Model
         return $this->hasMany('App\Models\Commentaire');
     }
 
+    /************** Pour favorits *****************/
+    public function favorits(){
+        return $this->hasMany('App\Models\Favorit');
+    }
+
     //relation many to many
     public function categories(){
         return $this->belongsToMany('App\Models\Categorie');

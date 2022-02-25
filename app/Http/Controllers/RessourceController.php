@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Categorie;
+use App\Models\Favorit;
 use Illuminate\Http\Request;
 use App\Models\Ressource;
 
@@ -123,6 +124,7 @@ class RessourceController extends Controller
             "msg" => "la categorie a été détachée avec succès !",
         ]);
     }
+
 
     /*********************** Pour modérateur ********************************/
 
