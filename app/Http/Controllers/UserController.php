@@ -74,4 +74,28 @@ class UserController extends Controller
             "msg" => "Utilisateur déconnecté !",
         ] );
     }
+
+    /************************Réservé à l'admin *****************************/
+
+    public function desactivateAccount(Request $request, $id){
+
+        if(User::where(['id' => $id])->exists()){
+            $user = User::find([$id]);
+            $user->actif = isset($request->actif) ? $request->actif : $user->actif;
+            $user->save();
+            return response([
+                "status" => 1,
+                "msg" => "L'utilisateur ".$user->prenom." ".$user->nom." vient d'être désactivé correctement !",
+            ]);
+        }else{
+            return response([
+                "status" => 0,
+                "msg" => "Cet utilisateur n'existe pas",
+            ]);
+        }
+
+    }
+
+
+
 }

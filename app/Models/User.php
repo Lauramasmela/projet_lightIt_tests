@@ -56,18 +56,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Commentaire');
     }
 
-    /*******Pour favorits *******/
-
-    public function favorits(){
-        return $this->hasMany('App\Models\Favorit');
-    }
-
     // relation many to many
     public function roles(){
         return $this->belongsToMany('App\Models\Role');
     }
 
-
-
+    public function favorits(){
+        return $this->belongsToMany('App\Models\Ressource', 'favorits');
+    }
 
 }

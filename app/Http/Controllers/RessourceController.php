@@ -58,8 +58,9 @@ class RessourceController extends Controller
             "data" => $ressources
         ]);
     }
-    public function listeRessource()
+    public function listeRessourcesByUser()
     {
+        // l'utilisateur qui se connecte peut voir sa liste.
         $user_id = auth()->user()->id;
         $ressources = Ressource::where('user_id', $user_id)->get();
 
@@ -126,6 +127,41 @@ class RessourceController extends Controller
     }
 
 
+    public function addToFavorits($id){
+        $user_id = auth()->user()->id;
+          $ressource = Ressource::findOrFail([$id]);
+
+            if(Favorit::where(['user_id' => $user_id, 'ressource_id' =>  $id])->exists()){
+                return response([
+                    "status" => 0,
+                    "msg" => "cette ressource existe déjà dans votre liste de favorits !",
+                ]);
+
+            }else{
+
+                auth()->user()->favorits()->attach($ressource);
+                return response([
+                    "status" => 1,
+                    "msg" => "la ressource vient d'être ajoutée aux Favoris !",
+                ]);
+            }
+    }
+
+    public function removeFromFavorits($id){
+        $user_id = auth()->user()->id;
+        $ressource = Ressource::findOrFail([$id]);
+        if(Favorit::where(['user_id' => $user_id, 'ressource_id' =>  $id])->exists()){
+            auth()->user()->favorits()->detach($ressource);
+            return response([
+                "status" => 1,
+                "msg" => "Cette ressource a été retirée des Favoris correctement !",
+            ]);
+
+        }
+    }
+
+
+
     /*********************** Pour modérateur ********************************/
 
     public function validateRessource(Request $request, $id){
@@ -171,6 +207,5 @@ class RessourceController extends Controller
             ], 404);
         }
     }
-
 
 }
