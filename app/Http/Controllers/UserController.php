@@ -75,17 +75,28 @@ class UserController extends Controller
         ] );
     }
 
-    /************************Réservé à l'admin *****************************/
 
-    public function desactivateAccount(Request $request, $id){
+    /************************ Réservé à l'admin *****************************/
+
+    public function showUser($id){
+        $user = User::where('id', $id)->first();
+
+        return response([
+            "status" => 1,
+            "msg" => "Détail de la ressource",
+            "data" => $user
+        ]);
+    }
+    public function accountActivation(Request $request, $id){
 
         if(User::where(['id' => $id])->exists()){
-            $user = User::find([$id]);
+            $user = User::where(['id' => $id])->first();
             $user->actif = isset($request->actif) ? $request->actif : $user->actif;
             $user->save();
+
             return response([
                 "status" => 1,
-                "msg" => "L'utilisateur ".$user->prenom." ".$user->nom." vient d'être désactivé correctement !",
+                "msg" => "Le statut de l'utilisateur a été modifié correctement !",
             ]);
         }else{
             return response([
@@ -93,9 +104,5 @@ class UserController extends Controller
                 "msg" => "Cet utilisateur n'existe pas",
             ]);
         }
-
     }
-
-
-
 }
