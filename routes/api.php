@@ -55,10 +55,10 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
 
     /*** routes pour categories ***/
         //admin
-    Route::post('create-category', [CategorieController::class, 'createCategory']);
-    Route::get('category-list', [CategorieController::class, 'categoryList']);
-    Route::put('update-category/{id}', [CategorieController::class, 'updateCategory']);
-    Route::delete('delete-category/{id}', [CategorieController::class, 'deleteCategory']);
+    Route::post('admin/create-category', [CategorieController::class, 'createCategory']);
+    Route::get('admin/category-list', [CategorieController::class, 'categoryList']);
+    Route::put('admin/update-category/{id}', [CategorieController::class, 'updateCategory']);
+    Route::delete('admin/delete-category/{id}', [CategorieController::class, 'deleteCategory']);
 
 });
 
