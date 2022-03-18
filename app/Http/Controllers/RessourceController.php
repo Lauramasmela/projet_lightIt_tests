@@ -13,7 +13,6 @@ class RessourceController extends Controller
 {
     public function createRessource(Request $request)
     {
-
         $request->validate([
             'titre' => 'required|max:250',
             'contenu' => 'required'
@@ -26,8 +25,9 @@ class RessourceController extends Controller
         $ressource->user_id = $user_id;
         $ressource->titre = $request->titre;
         $ressource->contenu = $request->contenu;
-
         $ressource->save();
+
+        $ressource->categories()->attach($request->listeCategories);
 
         return response([
             "status" => 1,
@@ -71,13 +71,13 @@ class RessourceController extends Controller
         ]);
     }
 
-    public function updateRessource(Request $request, $id)
+    public function updateRessource(Request $request)
     {
         $user_id = auth()->user()->id;
 
-        if (Ressource::where(['user_id' => $user_id, 'id' => $id])->exists()) {
+        if (Ressource::where(['user_id' => $user_id, 'id' => $request->id])->exists()) {
             // S'il existe
-            $ressource = Ressource::find($id);
+            $ressource = Ressource::find($request->id);
 
             $ressource->titre = $request->titre;
             // $ressource->titre = isset($request->titre) ? $request->titre : $ressource->titre;
@@ -85,9 +85,12 @@ class RessourceController extends Controller
             // $ressource->titre = isset($request->titre) ? $request->titre : $ressource->titre;
             $ressource->save();
 
+            $ressource->categories()->sync($request->listeCategories);
+
+
             return response([
                 "status" => 1,
-                "msg" => "La ressource avec l'id " . $id . " a été modifiée avec succès !",
+                "msg" => "La ressource avec l'id " . $request->id . " a été modifiée avec succès !",
             ]);
 
         } else {
@@ -98,10 +101,11 @@ class RessourceController extends Controller
         }
     }
 
-    public function categoriseRessource($id){
-        //appel du tableau des categories choisies
+    /*public function categoriseRessource($id){
+
+        // appel du tableau des categories choisies
         $categorie = Categorie::find([2]);
-        //inserer dans find les categories cochées à attacher,
+        // inserer dans find les categories cochées à attacher,
         // normalement c'est un tableau post avec des checkboxes
 
         $ressource = Ressource::find($id);
@@ -111,8 +115,8 @@ class RessourceController extends Controller
             "status" => 1,
             "msg" => "la ressource a été categorisée avec succès !",
         ]);
-    }
-    public function unCategoriseRessource($id){
+    }*/
+    /*public function unCategoriseRessource($id){
         $categorie = Categorie::find(2);
         //inserer dans find les categories cochées à detacher
 
@@ -124,7 +128,7 @@ class RessourceController extends Controller
             "status" => 1,
             "msg" => "la categorie a été détachée avec succès !",
         ]);
-    }
+    }*/
 
 
     public function addToFavorits($id){
@@ -159,8 +163,6 @@ class RessourceController extends Controller
 
         }
     }
-
-
 
     /*********************** Pour modérateur ********************************/
 

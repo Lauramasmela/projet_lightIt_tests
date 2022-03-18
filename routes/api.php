@@ -23,7 +23,7 @@ use App\Http\Controllers\RessourceController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
-Route::get('allRessourcesList', [RessourceController::class, 'allRessourcesList'])->name('all_ressources_list');
+Route::get('all-ressources-list', [RessourceController::class, 'allRessourcesList'])->name('all_ressources_list');
 Route::get('show-ressource/{id}', [RessourceController::class, 'showRessource']);
 
 Route::group(['middleware' => ["auth:sanctum"]], function(){
@@ -41,23 +41,22 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     /*** routes pour ressources ***/
 
     Route::post('create-ressource', [RessourceController::class, 'createRessource']);
-    Route::get('liste-ressource', [RessourceController::class, 'listeRessourcesByUser']);
-    Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
+    Route::get('user-ressource-list', [RessourceController::class, 'listeRessourcesByUser']);
+    //Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
+    Route::put('update-ressource', [RessourceController::class, 'updateRessource']);
     Route::post('show-ressource/{id}', [RessourceController::class, 'addToFavorits']);
     Route::delete('show-ressource/{id}', [RessourceController::class, 'removeFromFavorits']);
-
         //admin
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
-    Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
-    Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
+   // Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
+    //Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
         //moderateur
     Route::put('ressource-validate/{id}', [RessourceController::class, 'validateRessource']);
-
 
     /*** routes pour categories ***/
         //admin
     Route::post('create-categorie', [CategorieController::class, 'createCategory']);
-    Route::get('liste-categorie', [CategorieController::class, 'categoryList']);
+    Route::get('category-list', [CategorieController::class, 'categoryList']);
     Route::put('update-categorie/{id}', [CategorieController::class, 'updateCategory']);
     Route::delete('delete-categorie/{id}', [CategorieController::class, 'deleteCategory']);
 
