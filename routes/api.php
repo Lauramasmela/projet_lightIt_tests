@@ -48,8 +48,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::delete('show-ressource/{id}', [RessourceController::class, 'removeFromFavorits']);
         //admin
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
-   // Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
-    //Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
+   
         //moderateur
     Route::put('ressource-validate/{id}', [RessourceController::class, 'validateRessource']);
 
