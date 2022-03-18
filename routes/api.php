@@ -41,7 +41,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     /*** routes pour ressources ***/
 
     Route::post('create-ressource', [RessourceController::class, 'createRessource']);
-    Route::get('user-ressource-list', [RessourceController::class, 'listeRessourcesByUser']);
+    Route::get('user-ressources-list', [RessourceController::class, 'listeRessourcesByUser']);
     //Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
     Route::put('update-ressource', [RessourceController::class, 'updateRessource']);
     Route::post('show-ressource/{id}', [RessourceController::class, 'addToFavorits']);
@@ -55,10 +55,10 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
 
     /*** routes pour categories ***/
         //admin
-    Route::post('create-categorie', [CategorieController::class, 'createCategory']);
+    Route::post('create-category', [CategorieController::class, 'createCategory']);
     Route::get('category-list', [CategorieController::class, 'categoryList']);
-    Route::put('update-categorie/{id}', [CategorieController::class, 'updateCategory']);
-    Route::delete('delete-categorie/{id}', [CategorieController::class, 'deleteCategory']);
+    Route::put('update-category/{id}', [CategorieController::class, 'updateCategory']);
+    Route::delete('delete-category/{id}', [CategorieController::class, 'deleteCategory']);
 
 });
 
