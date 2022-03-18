@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -48,7 +49,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::delete('show-ressource/{id}', [RessourceController::class, 'removeFromFavorits']);
         //admin
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
-   
+
         //moderateur
     Route::put('ressource-validate/{id}', [RessourceController::class, 'validateRessource']);
 
@@ -58,6 +59,12 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::get('admin/category-list', [CategorieController::class, 'categoryList']);
     Route::put('admin/update-category/{id}', [CategorieController::class, 'updateCategory']);
     Route::delete('admin/delete-category/{id}', [CategorieController::class, 'deleteCategory']);
+
+    /*** routes pour categories ***/
+        //super-admin
+    Route::post('super-admin/create-role', [RoleController::class, 'createRole']);
+    Route::post('super-admin/create-user', [UserController::class, 'createUserWithRole']);
+
 
 });
 

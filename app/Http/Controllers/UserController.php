@@ -105,26 +105,67 @@ class UserController extends Controller
 
         return response([
             "status" => 1,
-            "msg" => "Détail de la ressource",
+            "msg" => "Info user",
             "data" => $user
         ]);
     }
     public function accountActivation(Request $request, $id){
+        if (auth()->user()->isAdministrator()){
+            if(User::where(['id' => $id])->exists()){
+                $user = User::where(['id' => $id])->first();
+                $user->actif = isset($request->actif) ? $request->actif : $user->actif;
+                $user->save();
 
-        if(User::where(['id' => $id])->exists()){
-            $user = User::where(['id' => $id])->first();
-            $user->actif = isset($request->actif) ? $request->actif : $user->actif;
-            $user->save();
-
-            return response([
-                "status" => 1,
-                "msg" => "Le statut de l'utilisateur a été modifié correctement !",
-            ]);
+                return response([
+                    "status" => 1,
+                    "msg" => "Le statut de l'utilisateur a été modifié correctement !",
+                ]);
+            }else{
+                return response([
+                    "status" => 0,
+                    "msg" => "Cet utilisateur n'existe pas",
+                ]);
+            }
         }else{
             return response([
                 "status" => 0,
-                "msg" => "Cet utilisateur n'existe pas",
+                "msg" => "Vous n'avez pas le droit d'exécuter cette action",
             ]);
         }
+
+    }
+
+    /*************************** Super-admin **************************/
+
+    public function createUserWithRole(Request $request){
+
+        if(auth()->user()->isSuperadministrator()){
+            $request->validate([
+                'pseudo' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|confirmed',
+            ]);
+
+            $user = new User();
+            $user->pseudo = $request->pseudo;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            $user->roles()->attach($request->listeRoles);
+
+
+            return response()->json([
+                "status" => 1,
+                "msg" => "L'enregistrement s'est déroulé avec succès",
+            ]);
+
+        }else{
+            return response()->json([
+                "status" => 1,
+                "msg" => "Cette utilisateur n'a pas le droit de créer des nouveaux administrateurs",
+            ]);
+        }
+
     }
 }
