@@ -23,7 +23,7 @@ use App\Http\Controllers\RessourceController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
-Route::get('allRessourcesList', [RessourceController::class, 'allRessourcesList']);
+Route::get('allRessourcesList', [RessourceController::class, 'allRessourcesList'])->name('all_ressources_list');
 Route::get('show-ressource/{id}', [RessourceController::class, 'showRessource']);
 
 Route::group(['middleware' => ["auth:sanctum"]], function(){
@@ -34,6 +34,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     /*** routes pour Users ***/
 
     Route::get('show-user/{id}', [UserController::class, 'showUser']);
+    Route::put('update-profile/{id}', [UserController::class, 'updateUser']);
         //route admin
     Route::put('activation-user/{id}', [UserController::class, 'accountActivation']);
 
@@ -42,13 +43,13 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::post('create-ressource', [RessourceController::class, 'createRessource']);
     Route::get('liste-ressource', [RessourceController::class, 'listeRessourcesByUser']);
     Route::put('update-ressource/{id}', [RessourceController::class, 'updateRessource']);
-    Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
-    Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
     Route::post('show-ressource/{id}', [RessourceController::class, 'addToFavorits']);
     Route::delete('show-ressource/{id}', [RessourceController::class, 'removeFromFavorits']);
 
         //admin
     Route::delete('delete-ressource/{id}', [RessourceController::class, 'deleteRessource']);
+    Route::post('categoriser-ressource/{id}', [RessourceController::class, 'categoriseRessource']);
+    Route::delete('decategoriser-ressource/{id}', [RessourceController::class, 'unCategoriseRessource']);
         //moderateur
     Route::put('ressource-validate/{id}', [RessourceController::class, 'validateRessource']);
 

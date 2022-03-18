@@ -75,6 +75,28 @@ class UserController extends Controller
         ] );
     }
 
+    public function updateUser(Request $request, $id){
+
+        if(User::where(['id' => $id])->exists() && (auth()->user()->id == $id)){
+
+            $user = User::find([$id]);
+            $user->prenom = isset($request->prenom) ? $request->prenom : $user->prenom;
+            $user->nom = isset($request->nom) ? $request->nom : $user->nom;
+            $user->adresse = isset($request->adresse) ? $request->adresse : $user->adresse;
+            $user->ville = isset($request->ville) ? $request->ville : $user->ville;
+            $user->codePostal = isset($request->codePostal) ? $request->codePostal : $user->codePostal;
+
+            $user->save();
+
+            return response([
+                "status" => 1,
+                "msg" => "Votre information a été modifiée correctement !",
+            ]);
+
+        }
+
+    }
+
 
     /************************ Réservé à l'admin *****************************/
 
