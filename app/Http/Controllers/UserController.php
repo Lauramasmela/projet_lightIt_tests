@@ -162,7 +162,7 @@ class UserController extends Controller
 
         }else{
             return response()->json([
-                "status" => 1,
+                "status" => 0,
                 "msg" => "Cette utilisateur n'a pas le droit de créer des nouveaux administrateurs",
             ]);
         }

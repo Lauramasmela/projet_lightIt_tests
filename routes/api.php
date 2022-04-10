@@ -65,7 +65,6 @@ Route::group(['middleware' => ["auth:sanctum"]], function(){
     Route::post('super-admin/create-role', [RoleController::class, 'createRole']);
     Route::post('super-admin/create-user', [UserController::class, 'createUserWithRole']);
 
-
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

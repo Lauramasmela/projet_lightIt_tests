@@ -87,7 +87,6 @@ class RessourceController extends Controller
 
             $ressource->categories()->sync($request->listeCategories);
 
-
             return response([
                 "status" => 1,
                 "msg" => "La ressource avec l'id " . $request->id . " a été modifiée avec succès !",
