@@ -4,10 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class Ressource extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'titre',
+        'contenu',
+    ];
 
     // relation one to many
     public function users(){
@@ -18,6 +30,7 @@ class Ressource extends Model
         return $this->hasMany('App\Models\Commentaire');
     }
 
+
     //relation many to many
     public function categories(){
         return $this->belongsToMany('App\Models\Categorie');
@@ -25,5 +38,9 @@ class Ressource extends Model
 
     public function typeRessources(){
         return $this->belongsToMany('App\Models\TypeRessource');
+    }
+
+    public function favorits(){
+        return $this->belongsToMany('App\Models\User', 'favorits');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRessourcesTable extends Migration
+class CreateFavoritsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,20 @@ class CreateRessourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ressources', function (Blueprint $table) {
+        Schema::create('favorits', function (Blueprint $table) {
             $table->id();
-            $table->string('titre');
-            $table->string('contenu');
-            $table->boolean('publiee')->default(0);
-
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('ressource_id');
 
             $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('ressource_id')
+                ->references('id')
+                ->on('ressources')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -36,6 +38,6 @@ class CreateRessourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ressources');
+        Schema::dropIfExists('favorits');
     }
 }

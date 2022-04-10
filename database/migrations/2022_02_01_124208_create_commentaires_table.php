@@ -19,6 +19,7 @@ class CreateCommentairesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('ressource_id');
             $table->unsignedBigInteger('parent_id')->unsigned()->nullable();
+            $table->boolean('publiee')->default(0);
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
@@ -33,7 +34,6 @@ class CreateCommentairesTable extends Migration
                 ->on('commentaires')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
 
             $table->timestamps();
         });

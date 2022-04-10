@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'pseudo',
         'email',
         'password',
     ];
@@ -60,4 +60,26 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany('App\Models\Role');
     }
+
+    public function favorits(){
+        return $this->belongsToMany('App\Models\Ressource', 'favorits');
+    }
+
+    // vérification user role
+
+    public function isSuperadministrator()
+    {
+       return $this->roles()->where('nom','super-administrateur')->exists();
+    }
+
+    public function isAdministrator()
+    {
+       return $this->roles()->where('nom','administrateur')->exists();
+    }
+
+    public function isModerator()
+    {
+       return $this->roles()->where('nom','modérateur')->exists();
+    }
+
 }

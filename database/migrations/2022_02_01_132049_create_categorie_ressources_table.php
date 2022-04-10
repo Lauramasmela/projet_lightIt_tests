@@ -13,7 +13,7 @@ class CreateCategorieRessourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorie_ressources', function (Blueprint $table) {
+        Schema::create('categorie_ressource', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('categorie_id');
             $table->unsignedBigInteger('ressource_id');

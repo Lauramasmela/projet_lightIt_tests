@@ -20,6 +20,7 @@ class CreateProfilsTable extends Migration
             $table->string('adresse')->nullable();
             $table->string('ville')->nullable();
             $table->string('codePostal')->nullable();
+            $table->boolean('actif')->default(1);
             $table->unsignedBigInteger('user_id')->unique();
 
             $table->foreign('user_id')
